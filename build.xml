@@ -1,0 +1,36 @@
+<project name="LOPES_LIN_rotofight" default="compile" basedir=".">
+	
+	<property name="zen5.lib" value="lib/zen5.jar"/>
+	<property name="classes.fold" value="classes"/>
+	<property name="src.fold" value="src"/>
+	<property name="docs.fold" value="docs/doc"/>
+		
+	
+	<target name="compile" depends="clean" description="Compiles the project">
+		<javac includeantruntime="true" srcdir="${src.fold}" destdir="${classes.fold}" classpath="${zen5.lib}"/>
+	</target>
+	
+	
+	<target name="jar" depends="compile" description="Creates jar file">
+		<jar jarfile="rotofight.jar" basedir="${classes.fold}">
+			<zipfileset includes="**/*.class" src="${zen5.lib}"/>
+			<manifest>
+    			<attribute name="Main-Class" value="fr.umlv.game.main.Main"/>
+  			</manifest>
+		</jar>
+	</target>
+	
+	
+	<target name="javadoc" description="Creates the documentation">
+		<javadoc sourcepath="${src.fold}" destdir="${docs.fold}" classpath="${zen5.lib}"/>
+	</target>
+	
+	
+	<target name="clean" description="Cleans the project">
+		<delete includeemptydirs="true">
+			<fileset dir="${classes.fold}" includes="**/*"/>
+		</delete>
+		<delete file="rotofight.jar"/>
+	</target>
+	
+</project>
